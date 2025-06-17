@@ -1,3 +1,28 @@
+## Instalacja i uruchomienie
+
+1. Wymagania systemowe:
+- Python 3.x
+- MySQL Server
+
+2. Instalacja zależności:
+Program automatycznie zainstaluje wymagane biblioteki przy pierwszym uruchomieniu.
+Jedynie jedna biblioteka musi być pobrana ręcznie:
+```bash
+pip install psutil
+```
+
+3. Import schematu bazy danych:
+```sql
+CREATE DATABASE sklep CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci;
+exit
+
+mysql -u root -p sklep < ściezka_do_bazy_sklep.sql
+```
+
+4. Uruchomienie aplikacji:
+```bash
+python sklep.py
+```
 # 1. Połączenie z bazą danych
 ![Kod](img/polaczenie_z_baza.png)
 ```python
