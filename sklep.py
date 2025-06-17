@@ -1,14 +1,16 @@
 import mysql.connector
 import csv
 
+# łączenie z bazą
 def connect():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="",
+        password="twoje_haslo",
         database="sklep"
     )
 
+# wyświetlenie menu
 def wyswietl_menu():
     print("""
     1. Lista klientów
@@ -19,11 +21,13 @@ def wyswietl_menu():
     0. Wyjście
     """)
 
+# wyświetlenie listy klientów
 def lista_klientow(cursor):
     cursor.execute("SELECT * FROM klienci")
     for row in cursor.fetchall():
         print(row)
 
+# wyszukiwanie klienta po nazwisku
 def wyszukaj_klienta(cursor):
     nazwisko = input("Podaj nazwisko klienta: ")
     cursor.execute("SELECT * FROM klienci WHERE nazwisko = %s", (nazwisko,))
@@ -34,6 +38,7 @@ def wyszukaj_klienta(cursor):
     else:
         print("Brak klienta o podanym nazwisku.")
 
+# wyświetlenie zamówień danego klienta
 def zamowienia_klienta(cursor):
     try:
         klient_id = int(input("Podaj ID klienta: "))
@@ -47,6 +52,7 @@ def zamowienia_klienta(cursor):
     except ValueError:
         print("ID musi być liczbą.")
 
+# obliczanie wartości zamówienia
 def wartosc_zamowienia(cursor):
     try:
         zamowienie_id = int(input("Podaj ID zamówienia: "))
@@ -64,6 +70,7 @@ def wartosc_zamowienia(cursor):
     except ValueError:
         print("ID musi być liczbą.")
 
+# eksport danych z tabeli do pliku CSV
 def eksport_csv(cursor):
     tabela = input("Podaj nazwę tabeli do eksportu: ")
     try:
@@ -78,6 +85,7 @@ def eksport_csv(cursor):
     except Exception as e:
         print(f"Błąd eksportu: {e}")
 
+# główna pętla programu
 def main():
     conn = connect()
     cursor = conn.cursor()
@@ -105,5 +113,6 @@ def main():
     cursor.close()
     conn.close()
 
+# uruchomienie programu
 if __name__ == "__main__":
     main()
